@@ -1,5 +1,10 @@
 # Cambios
 
+## 1.2.8
+
+### Ficha de producto
+- Bloque nuevo **Personalizar con imagen**: el comprador sube una imagen (JPG, PNG o WebP, hasta 10 MB) y la mueve, gira y agranda dentro de la zona de impresión, sobre la foto del producto o una imagen de fondo propia. Si la imagen tiene un fondo liso, el botón **Sin fondo** se lo saca. Avisa si una parte queda fuera de la zona. Al pedido llegan dos archivos en la línea, con la subida de archivos de Shopify: el diseño (vuelto a codificar, sin metadatos) y la vista previa. Textos en español, inglés y portugués.
+
 ## 1.2.7
 
 ### Ficha de producto

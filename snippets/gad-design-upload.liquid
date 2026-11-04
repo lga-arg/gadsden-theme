@@ -1,0 +1,255 @@
+{%- comment -%}
+  Personalizar con imagen (bloque design_upload de la ficha): el comprador sube una imagen y la ubica dentro de la
+  zona de impresión, sobre la foto del producto (moverla, girarla, agrandarla y, si tiene fondo liso, sacárselo).
+  Llega al pedido como dos archivos en las propiedades de la línea, con la subida de archivos de Shopify: el diseño
+  (vuelto a codificar, sin metadatos) y la vista previa (la foto con el diseño en su lugar).
+
+  Accepts:
+  - block: {Object} bloque design_upload
+  - product: {Object} producto
+  - product_form_id: {String} id del formulario de compra
+  - margins: {String} márgenes del bloque (--mt / --mb)
+
+  Usage:
+  {% render 'gad-design-upload', block: block, product: product, product_form_id: product_form_id, margins: margins %}
+{%- endcomment -%}
+{%- liquid
+  assign b = block.settings
+  assign prop = b.propiedad | default: 'Diseño'
+  if b.mockup != blank
+    assign fondo = b.mockup | image_url: width: 1200
+  else
+    assign foto = product.selected_or_first_available_variant.featured_image | default: product.featured_image
+    if foto != blank
+      assign fondo = foto | image_url: width: 1200
+    endif
+  endif
+-%}
+<div
+  class="gad-pblock gad-p-diseno"
+  style="{{ margins }}"
+  data-gad-diseno
+  data-zona="{{ b.zona_x }},{{ b.zona_y }},{{ b.zona_ancho }},{{ b.zona_alto }}"
+  data-textos='{"outside": {{ 'gadsden.design.outside' | t | json | escape }}, "bad_type": {{ 'gadsden.design.bad_type' | t | json | escape }}, "too_big": {{ 'gadsden.design.too_big' | t | json | escape }}, "cant_open": {{ 'gadsden.design.cant_open' | t | json | escape }}}'
+  {{ block.shopify_attributes }}
+  {%- render 'gad-fs', b: block -%}
+>
+  {%- if b.label != blank -%}<p class="gad-p-diseno__titulo">{{ b.label | escape }}</p>{%- endif -%}
+  <div class="gad-p-diseno__lienzo">
+    {%- if fondo != blank -%}<img class="gad-p-diseno__fondo" src="{{ fondo }}" alt="" draggable="false">{%- else -%}<div class="gad-p-diseno__fondo gad-p-diseno__fondo--vacio"></div>{%- endif -%}
+    <div class="gad-p-diseno__zona">
+      <div class="gad-p-diseno__marca" hidden>
+        <img alt="{{ 'gadsden.design.your_image' | t }}" draggable="false">
+        <button type="button" class="gad-p-diseno__manija gad-p-diseno__manija--girar" aria-label="{{ 'gadsden.design.rotate' | t }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="gad-p-diseno__manija gad-p-diseno__manija--tamano" aria-label="{{ 'gadsden.design.resize' | t }}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <label class="gad-p-diseno__vacio">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>{{ 'gadsden.design.upload' | t }}</span>
+        <input type="file" accept="image/png,image/jpeg,image/webp" hidden>
+      </label>
+    </div>
+  </div>
+  <div class="gad-p-diseno__acciones" hidden>
+    <label class="gad-p-diseno__boton">{{ 'gadsden.design.change' | t }}<input type="file" accept="image/png,image/jpeg,image/webp" hidden></label>
+    <button type="button" class="gad-p-diseno__boton" data-accion="fondo" aria-pressed="false" hidden>{{ 'gadsden.design.no_background' | t }}</button>
+    <button type="button" class="gad-p-diseno__boton" data-accion="quitar">{{ 'gadsden.design.remove' | t }}</button>
+  </div>
+  <p class="gad-p-diseno__estado" role="status" aria-live="polite"></p>
+  {%- if b.help != blank -%}<div class="gad-p-field__help">{{ b.help }}</div>{%- endif -%}
+  {%- comment -%} Sin archivo van deshabilitados: así no viajan vacíos en el formulario. {%- endcomment -%}
+  <input type="file" name="properties[{{ prop | escape }}]" form="{{ product_form_id }}" data-campo="diseno" hidden disabled>
+  <input type="file" name="properties[{{ 'gadsden.design.preview' | t | escape }}]" form="{{ product_form_id }}" data-campo="vista" hidden disabled>
+</div>
+<style>
+  .gad-p-diseno__titulo { margin: 0 0 .6rem; font-weight: 600; }
+  .gad-p-diseno__lienzo { position: relative; border-radius: 8px; overflow: hidden; background: rgba(var(--color-foreground), .04); user-select: none; }
+  .gad-p-diseno__fondo { display: block; width: 100%; height: auto; pointer-events: none; }
+  .gad-p-diseno__fondo--vacio { aspect-ratio: 1; }
+  .gad-p-diseno__zona { position: absolute; outline: 2px dashed rgba(var(--color-foreground), .45); outline-offset: -1px; }
+  .gad-p-diseno__vacio { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .3rem; cursor: pointer; font-size: 1.3rem; text-align: center; color: rgb(var(--color-foreground)); background: rgba(var(--color-background), .55); }
+  .gad-p-diseno__vacio svg { width: 26px; height: 26px; }
+  .gad-p-diseno__marca { position: absolute; cursor: grab; touch-action: none; }
+  .gad-p-diseno__marca.arrastrando { cursor: grabbing; }
+  .gad-p-diseno__marca > img { display: block; width: 100%; height: 100%; pointer-events: none; outline: 1px solid rgba(var(--color-foreground), .35); }
+  .gad-p-diseno__manija { position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px; padding: 5px; border-radius: 50%; border: 0; background: rgb(var(--color-background)); color: rgb(var(--color-foreground)); box-shadow: 0 1px 4px rgba(0, 0, 0, .3); cursor: pointer; touch-action: none; }
+  .gad-p-diseno__manija svg { display: block; width: 100%; height: 100%; }
+  .gad-p-diseno__manija--girar { left: 50%; top: -22px; }
+  .gad-p-diseno__manija--tamano { left: 100%; top: 100%; }
+  .gad-p-diseno__acciones { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .8rem; }
+  .gad-p-diseno__acciones[hidden], .gad-p-diseno__marca[hidden], .gad-p-diseno__vacio[hidden], .gad-p-diseno__boton[hidden] { display: none; }
+  .gad-p-diseno__boton { padding: .6rem 1.2rem; border: 1px solid rgba(var(--color-foreground), .3); border-radius: 999px; background: none; color: rgb(var(--color-foreground)); font: inherit; font-size: 1.3rem; cursor: pointer; }
+  .gad-p-diseno__boton[aria-pressed="true"] { background: rgb(var(--color-foreground)); color: rgb(var(--color-background)); }
+  .gad-p-diseno__estado { margin: .6rem 0 0; font-size: 1.3rem; min-height: 1em; }
+  .gad-p-diseno__estado:empty { display: none; }
+  .gad-p-diseno__estado.error { color: rgb(var(--color-foreground)); font-weight: 600; }
+</style>
+<script>
+(() => {
+  const raiz = document.querySelector("[data-gad-diseno]:not([data-listo])");
+  if (!raiz) return;
+  raiz.dataset.listo = "1";
+  const T = JSON.parse(raiz.dataset.textos);
+  const $ = (s) => raiz.querySelector(s);
+  const zona = $(".gad-p-diseno__zona"), marca = $(".gad-p-diseno__marca"), dibujo = marca.querySelector("img");
+  const vacio = $(".gad-p-diseno__vacio"), acciones = $(".gad-p-diseno__acciones"), estado = $(".gad-p-diseno__estado");
+  const botonFondo = $('[data-accion="fondo"]'), campo = $('[data-campo="diseno"]'), campoVista = $('[data-campo="vista"]');
+  const z = raiz.dataset.zona.split(",").map(Number);
+  Object.assign(zona.style, { left: z[0] + "%", top: z[1] + "%", width: z[2] + "%", height: z[3] + "%" });
+  const TIPOS = ["image/png", "image/jpeg", "image/webp"], MAXIMO = 10 * 1024 * 1024;
+  const s = { pos: { x: 0.5, y: 0.5, w: 0.7, r: 0 }, archivos: {} };
+
+  const avisar = (texto, error) => { estado.textContent = texto || ""; estado.classList.toggle("error", !!error); };
+  const lleno = () => zona.getBoundingClientRect();
+
+  // El color de las cuatro esquinas, y lo parecido que toca el borde se vuelve transparente.
+  function sacarFondo(ctx, w, h) {
+    const img = ctx.getImageData(0, 0, w, h), d = img.data;
+    let cr = 0, cg = 0, cb = 0;
+    for (const [x, y] of [[0, 0], [w - 1, 0], [0, h - 1], [w - 1, h - 1]]) { const i = (y * w + x) * 4; cr += d[i]; cg += d[i + 1]; cb += d[i + 2]; }
+    cr /= 4; cg /= 4; cb /= 4;
+    const TOL = 62, visto = new Uint8Array(w * h), cola = [];
+    let borrados = 0;
+    const probar = (x, y) => {
+      if (x < 0 || y < 0 || x >= w || y >= h) return;
+      const p = y * w + x;
+      if (visto[p]) return;
+      visto[p] = 1;
+      const i = p * 4;
+      if (Math.hypot(d[i] - cr, d[i + 1] - cg, d[i + 2] - cb) < TOL) { if (d[i + 3] !== 0) borrados++; d[i + 3] = 0; cola.push(p); }
+    };
+    for (let x = 0; x < w; x++) { probar(x, 0); probar(x, h - 1); }
+    for (let y = 0; y < h; y++) { probar(0, y); probar(w - 1, y); }
+    while (cola.length) { const p = cola.pop(), x = p % w, y = (p / w) | 0; probar(x + 1, y); probar(x - 1, y); probar(x, y + 1); probar(x, y - 1); }
+    ctx.putImageData(img, 0, 0);
+    return borrados;
+  }
+  // La imagen en un lienzo de hasta `lado` px: al volver a codificarla se van los metadatos (la ubicación de una foto).
+  function lienzo(imagen, lado) {
+    const k = Math.min(1, lado / Math.max(imagen.naturalWidth, imagen.naturalHeight));
+    const c = document.createElement("canvas");
+    c.width = Math.max(1, Math.round(imagen.naturalWidth * k)); c.height = Math.max(1, Math.round(imagen.naturalHeight * k));
+    const ctx = c.getContext("2d", { willReadFrequently: true });
+    ctx.drawImage(imagen, 0, 0, c.width, c.height);
+    return { c, ctx };
+  }
+  const blob = (c, tipo) => new Promise((r) => c.toBlob(r, tipo, 0.92));
+  // Un archivo en el input del formulario (Shopify lo sube con el agregado al carrito); sin archivo, deshabilitado.
+  function poner(entrada, archivo) {
+    const dt = new DataTransfer();
+    if (archivo) dt.items.add(archivo);
+    entrada.files = dt.files;
+    entrada.disabled = !archivo;
+  }
+  // El diseño, una vez por versión: la original (hasta 4000 px; PNG si venía con transparencia posible) o sin fondo (PNG).
+  async function diseno() {
+    const clave = s.sinFondo ? "sinFondo" : "original";
+    if (!s.archivos[clave]) {
+      const { c, ctx } = lienzo(s.imagen, s.sinFondo ? 2500 : 4000);
+      if (s.sinFondo) sacarFondo(ctx, c.width, c.height);
+      const png = s.sinFondo || /png|webp/.test(s.tipo || "");
+      s.archivos[clave] = new File([await blob(c, png ? "image/png" : "image/jpeg")], "diseno" + (s.sinFondo ? "-sin-fondo" : "") + (png ? ".png" : ".jpg"), { type: png ? "image/png" : "image/jpeg" });
+    }
+    return s.archivos[clave];
+  }
+  // La vista previa: la foto del producto con el diseño donde lo dejó el comprador (misma cuenta que en pantalla).
+  async function vistaPrevia() {
+    const foto = $("img.gad-p-diseno__fondo");
+    if (!foto || !foto.naturalWidth) return null;
+    const W = foto.naturalWidth, H = foto.naturalHeight;
+    const c = document.createElement("canvas"); c.width = W; c.height = H;
+    const ctx = c.getContext("2d");
+    ctx.drawImage(foto, 0, 0, W, H);
+    const zw = (z[2] / 100) * W, zh = (z[3] / 100) * H, w = s.pos.w * zw, h = w * s.aspecto;
+    ctx.translate((z[0] / 100) * W + s.pos.x * zw, (z[1] / 100) * H + s.pos.y * zh);
+    ctx.rotate((s.pos.r * Math.PI) / 180);
+    ctx.drawImage(s.sinFondo ? s.chicaSinFondo : s.chica, -w / 2, -h / 2, w, h);
+    try { return new File([await blob(c, "image/jpeg")], "vista-previa.jpg", { type: "image/jpeg" }); } catch (e) { return null; }
+  }
+  let turno = 0;
+  async function guardar() {
+    const yo = ++turno;
+    if (!s.imagen) { poner(campo, null); poner(campoVista, null); return; }
+    const [d, v] = [await diseno(), await vistaPrevia()];
+    if (yo !== turno) return;
+    poner(campo, d); poner(campoVista, v);
+  }
+
+  function ubicar() {
+    const t = lleno(), w = s.pos.w * t.width, h = w * s.aspecto;
+    Object.assign(marca.style, { width: w + "px", height: h + "px", left: s.pos.x * t.width - w / 2 + "px", top: s.pos.y * t.height - h / 2 + "px", transform: "rotate(" + s.pos.r + "deg)" });
+    // La caja girada, contra la zona de impresión.
+    const a = (s.pos.r * Math.PI) / 180, mx = Math.abs(w / 2 * Math.cos(a)) + Math.abs(h / 2 * Math.sin(a)), my = Math.abs(w / 2 * Math.sin(a)) + Math.abs(h / 2 * Math.cos(a));
+    const cx = s.pos.x * t.width, cy = s.pos.y * t.height, fuera = cx - mx < -2 || cy - my < -2 || cx + mx > t.width + 2 || cy + my > t.height + 2;
+    if (!s.error) avisar(fuera ? T.outside : "");
+  }
+  function mostrar() {
+    const hay = !!s.imagen;
+    marca.hidden = !hay; vacio.hidden = hay; acciones.hidden = !hay;
+    botonFondo.hidden = !s.hayFondo;
+    botonFondo.setAttribute("aria-pressed", String(!!s.sinFondo));
+    if (!hay) return;
+    dibujo.src = (s.sinFondo ? s.chicaSinFondo : s.chica).toDataURL("image/png");
+    ubicar();
+  }
+
+  async function elegir(archivo) {
+    if (!archivo) return;
+    s.error = true;
+    if (!TIPOS.includes(archivo.type)) return avisar(T.bad_type, true);
+    if (archivo.size > MAXIMO) return avisar(T.too_big, true);
+    const imagen = new Image();
+    imagen.src = URL.createObjectURL(archivo);
+    try { await imagen.decode(); } catch (e) { return avisar(T.cant_open, true); }
+    const chica = lienzo(imagen, 800), chicaSinFondo = lienzo(imagen, 800);
+    const borrados = sacarFondo(chicaSinFondo.ctx, chicaSinFondo.c.width, chicaSinFondo.c.height);
+    const t = lleno(), aspecto = imagen.naturalHeight / imagen.naturalWidth;
+    Object.assign(s, {
+      imagen, aspecto, tipo: archivo.type, chica: chica.c, chicaSinFondo: chicaSinFondo.c,
+      hayFondo: borrados / (chica.c.width * chica.c.height) >= 0.02, sinFondo: false, archivos: {}, error: false,
+      // Entra entera en la zona, al 80 %.
+      pos: { x: 0.5, y: 0.5, w: Math.min(0.8, (0.8 * t.height) / (t.width * aspecto) || 0.8), r: 0 },
+    });
+    avisar("");
+    mostrar();
+    await guardar();
+  }
+
+  for (const entrada of raiz.querySelectorAll("label input[type=file]")) entrada.addEventListener("change", () => { void elegir(entrada.files[0]); entrada.value = ""; });
+  botonFondo.addEventListener("click", () => { s.sinFondo = !s.sinFondo; mostrar(); void guardar(); });
+  $('[data-accion="quitar"]').addEventListener("click", () => { Object.assign(s, { imagen: null, archivos: {}, sinFondo: false, hayFondo: false, error: false }); avisar(""); mostrar(); void guardar(); });
+
+  // Mover (arrastrando la imagen), girar y cambiar el tamaño (las manijas).
+  let gesto = null;
+  const centro = () => { const t = lleno(); return { x: t.left + s.pos.x * t.width, y: t.top + s.pos.y * t.height }; };
+  function empezar(tipo, ev) {
+    ev.preventDefault(); ev.stopPropagation();
+    const c = centro(), t = lleno();
+    gesto = { tipo, x: ev.clientX, y: ev.clientY, pos: { ...s.pos }, t, angulo: Math.atan2(ev.clientY - c.y, ev.clientX - c.x), dist: Math.hypot(ev.clientX - c.x, ev.clientY - c.y) };
+    try { ev.currentTarget.setPointerCapture(ev.pointerId); } catch (e) { /* */ }
+    marca.classList.add("arrastrando");
+  }
+  function mover(ev) {
+    if (!gesto) return;
+    const c = centro();
+    if (gesto.tipo === "mover") {
+      s.pos.x = Math.min(1, Math.max(0, gesto.pos.x + (ev.clientX - gesto.x) / gesto.t.width));
+      s.pos.y = Math.min(1, Math.max(0, gesto.pos.y + (ev.clientY - gesto.y) / gesto.t.height));
+    } else if (gesto.tipo === "girar") {
+      s.pos.r = Math.round(gesto.pos.r + ((Math.atan2(ev.clientY - c.y, ev.clientX - c.x) - gesto.angulo) * 180) / Math.PI);
+    } else {
+      s.pos.w = Math.min(1.5, Math.max(0.08, gesto.pos.w * (Math.hypot(ev.clientX - c.x, ev.clientY - c.y) / Math.max(1, gesto.dist))));
+    }
+    ubicar();
+  }
+  function terminar() { if (!gesto) return; gesto = null; marca.classList.remove("arrastrando"); void guardar(); }
+  for (const [el, tipo] of [[marca, "mover"], [$(".gad-p-diseno__manija--girar"), "girar"], [$(".gad-p-diseno__manija--tamano"), "tamano"]]) {
+    el.addEventListener("pointerdown", (ev) => { if (tipo === "mover" && ev.target.closest(".gad-p-diseno__manija")) return; empezar(tipo, ev); });
+    el.addEventListener("pointermove", mover);
+    el.addEventListener("pointerup", terminar);
+    el.addEventListener("pointercancel", terminar);
+  }
+  new ResizeObserver(() => { if (s.imagen) ubicar(); }).observe(zona);
+  mostrar();
+})();
+</script>

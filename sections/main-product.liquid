@@ -5017,6 +5017,149 @@
       ]
     },
     {
+      "type": "design_upload",
+      "name": "Personalizar con imagen",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Título",
+          "default": "Personalizalo con tu imagen"
+        },
+        {
+          "type": "richtext",
+          "id": "help",
+          "label": "Aclaración debajo",
+          "default": "<p>JPG, PNG o WebP, hasta 10 MB. Movela, girala y agrandala dentro de la zona de impresión.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "mockup",
+          "label": "Imagen de fondo",
+          "info": "Vacía: se usa la foto del producto (la de la variante elegida)."
+        },
+        {
+          "type": "header",
+          "content": "Zona de impresión"
+        },
+        {
+          "type": "range",
+          "id": "zona_x",
+          "min": 0,
+          "max": 90,
+          "step": 1,
+          "unit": "%",
+          "label": "Distancia desde la izquierda",
+          "default": 30
+        },
+        {
+          "type": "range",
+          "id": "zona_y",
+          "min": 0,
+          "max": 90,
+          "step": 1,
+          "unit": "%",
+          "label": "Distancia desde arriba",
+          "default": 22
+        },
+        {
+          "type": "range",
+          "id": "zona_ancho",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Ancho",
+          "default": 40
+        },
+        {
+          "type": "range",
+          "id": "zona_alto",
+          "min": 10,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Alto",
+          "default": 45
+        },
+        {
+          "type": "text",
+          "id": "propiedad",
+          "label": "Nombre con el que llega en el pedido",
+          "default": "Diseño",
+          "info": "En el pedido llegan dos archivos: el diseño y la vista previa."
+        },
+        {
+          "type": "header",
+          "content": "Márgenes"
+        },
+        {
+          "type": "range",
+          "id": "margin_top",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "label": "Arriba",
+          "default": 0
+        },
+        {
+          "type": "range",
+          "id": "margin_bottom",
+          "min": 0,
+          "max": 30,
+          "step": 1,
+          "unit": "px",
+          "label": "Abajo",
+          "default": 15
+        },
+        {
+          "type": "select",
+          "id": "fs_scale",
+          "label": "Tamaño de la letra",
+          "options": [
+            {
+              "value": "70",
+              "label": "70 %"
+            },
+            {
+              "value": "80",
+              "label": "80 %"
+            },
+            {
+              "value": "90",
+              "label": "90 %"
+            },
+            {
+              "value": "100",
+              "label": "Normal"
+            },
+            {
+              "value": "110",
+              "label": "110 %"
+            },
+            {
+              "value": "125",
+              "label": "125 %"
+            },
+            {
+              "value": "150",
+              "label": "150 %"
+            },
+            {
+              "value": "175",
+              "label": "175 %"
+            },
+            {
+              "value": "200",
+              "label": "200 %"
+            }
+          ],
+          "default": "100"
+        }
+      ]
+    },
+    {
       "type": "button",
       "name": "Botón con enlace",
       "settings": [

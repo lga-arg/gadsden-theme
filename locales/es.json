@@ -627,6 +627,20 @@
     },
     "legal": {
       "missing": "Falta: completalo o conectá un metacampo."
+    },
+    "design": {
+      "upload": "Subí tu imagen",
+      "change": "Cambiar imagen",
+      "no_background": "Sin fondo",
+      "remove": "Quitar",
+      "your_image": "Tu imagen",
+      "rotate": "Girar",
+      "resize": "Agrandar o achicar",
+      "outside": "Una parte de tu imagen queda fuera de la zona de impresión.",
+      "bad_type": "Usá una imagen JPG, PNG o WebP.",
+      "too_big": "La imagen pesa más de 10 MB. Probá con una más liviana.",
+      "cant_open": "No pudimos abrir esa imagen.",
+      "preview": "Vista previa"
     }
   }
 }

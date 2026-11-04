@@ -539,5 +539,21 @@
       "expanded": "Formulário de destinatário do cartão-presente expandido",
       "collapsed": "Formulário de destinatário do cartão-presente recolhido"
     }
+  },
+  "gadsden": {
+    "design": {
+      "upload": "Envie sua imagem",
+      "change": "Trocar imagem",
+      "no_background": "Sem fundo",
+      "remove": "Remover",
+      "your_image": "Sua imagem",
+      "rotate": "Girar",
+      "resize": "Aumentar ou diminuir",
+      "outside": "Uma parte da sua imagem fica fora da área de impressão.",
+      "bad_type": "Use uma imagem JPG, PNG ou WebP.",
+      "too_big": "A imagem tem mais de 10 MB. Tente uma mais leve.",
+      "cant_open": "Não conseguimos abrir essa imagem.",
+      "preview": "Prévia"
+    }
   }
 }

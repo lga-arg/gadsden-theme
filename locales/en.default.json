@@ -615,6 +615,20 @@
     },
     "legal": {
       "missing": "Missing: fill it in or connect a metafield."
+    },
+    "design": {
+      "upload": "Upload your image",
+      "change": "Change image",
+      "no_background": "No background",
+      "remove": "Remove",
+      "your_image": "Your image",
+      "rotate": "Rotate",
+      "resize": "Resize",
+      "outside": "Part of your image is outside the print area.",
+      "bad_type": "Use a JPG, PNG or WebP image.",
+      "too_big": "The image is larger than 10 MB. Try a lighter one.",
+      "cant_open": "We couldn't open that image.",
+      "preview": "Preview"
     }
   }
 }

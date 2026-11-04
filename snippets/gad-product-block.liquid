@@ -3,8 +3,8 @@
   sticky_bar (P01), reviews (P02), benefits (P03), divider (P04), urgency (P05), icons (P06),
   image (P07), features + feature (P08/P09), stars (P10), trustpilot (P11), text_icons (PX8),
   quantity_offers (PX10), atc (T11), code (P12), addons (P14), video (P15), payment (P16), bundle (P17),
-  qty_gifts (P18), delivery (P19), shipping_steps (P20), jump (P21), avatars (P22), field (P23) y
-  button (P24). Los de contenido (stars, trustpilot, image, text_icons, atc, icons)
+  qty_gifts (P18), delivery (P19), shipping_steps (P20), jump (P21), avatars (P22), field (P23),
+  design_upload (gad-design-upload) y button (P24). Los de contenido (stars, trustpilot, image, text_icons, atc, icons)
   también los usan imagen con texto (E03), texto enriquecido (E07) y el carrito.
 
   Accepts:
@@ -419,6 +419,9 @@
       {%- endif -%}
       {%- if b.help != blank -%}<p class="gad-p-field__help">{{ b.help }}</p>{%- endif -%}
     </div>
+
+  {%- when 'design_upload' -%}
+    {%- render 'gad-design-upload', block: block, product: product, product_form_id: product_form_id, margins: margins -%}
 
   {%- when 'button' -%}
     {%- if b.label != blank -%}
