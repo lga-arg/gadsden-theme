@@ -2,9 +2,9 @@
 
 Theme de Shopify basado en [Dawn](https://github.com/Shopify/dawn) 16.0.0, pensado para tiendas de un producto o de pocos productos que venden con landings: ficha de producto con bloques de conversión, carrito lateral armable por bloques y más de 30 secciones para armar páginas de venta sin tocar código.
 
-![La ficha de producto y una landing de domuhogar.com con Gadsden](docs/capturas.png)
+![La ficha de producto con Gadsden en el editor de demostración: tienda y productos de ejemplo](docs/capturas.png)
 
-**En vivo** en domuhogar.com (Gadsden 1.2.7): [landing y ficha de producto](https://domuhogar.com/products/carbotiras) · [colección](https://domuhogar.com/collections/all)
+**Probalo sin instalar:** [editor de demostración](https://gadsden.lga-arg.com/shopify/editor/) (tienda y productos de ejemplo) · [qué trae y cómo se instala](https://gadsden.lga-arg.com/shopify/)
 
 Es *white-label*: no trae marca ni textos de ninguna tienda. Todos los ajustes del editor están en castellano.
 
