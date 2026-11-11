@@ -66,7 +66,7 @@ Con [Shopify CLI](https://shopify.dev/docs/api/shopify-cli):
 shopify theme push --unpublished --store tu-tienda.myshopify.com
 ```
 
-O descargá el ZIP de la [última versión](https://github.com/peripequenho/gadsden-theme/releases/latest) y subilo desde *Tienda online > Temas > Agregar tema*.
+O descargá el ZIP de la [última versión](https://github.com/lga-arg/gadsden-theme/releases/latest) y subilo desde *Tienda online > Temas > Agregar tema*. Paso a paso, con capturas: <https://gadsden.lga-arg.com/shopify/instalar/>.
 
 ## Desarrollo
 
