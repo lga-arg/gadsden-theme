@@ -1,5 +1,5 @@
 {%- comment -%}
-  ATHLEX · Reseñas — v2 "EL MURO".
+  Reseñas — v2 "EL MURO".
 
   2026-08-03, pedido de Gero: sección TOP, mostrar LA MAYOR CANTIDAD POSIBLE de
   reseñas, con formas variadas. El carrusel v1 mostraba UNA por pantalla — lo
@@ -19,9 +19,8 @@
   JUDGE.ME: cuando se instale, esta sección se borra de la plantilla — dos
   promedios distintos en la misma página es peor que ninguno.
 
-  La versión chica para arriba es OTRA sección: athlex-reviews-mini.
+  La versión chica para arriba es OTRA sección: gad-reviews-mini.
 
-  Instalar: node tools/tema.mjs put sections/athlex-reviews.liquid
 {%- endcomment -%}
 
 {%- liquid
@@ -153,8 +152,8 @@
 </style>
 
 <div id="ax-rev-{{ uid }}">
-  {%- comment -%} ancla estable: la mini de arriba linkea acá con #athlex-resenas {%- endcomment -%}
-  <span id="athlex-resenas" style="position:absolute;margin-top:-80px"></span>
+  {%- comment -%} ancla estable: la mini de arriba linkea acá con #gad-resenas {%- endcomment -%}
+  <span id="gad-resenas" style="position:absolute;margin-top:-80px"></span>
   <div class="ax-wrap">
     {%- if section.settings.eyebrow != blank -%}
       <div class="ax-eye"><span>{{ section.settings.eyebrow }}</span></div>
@@ -272,7 +271,7 @@
 {
   "name": "Muro de reseñas",
   "tag": "section",
-  "class": "athlex-reviews-section",
+  "class": "gad-reviews-wall-section",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Bajada (eyebrow)", "default": "07 — LO QUE DICEN" },
     { "type": "inline_richtext", "id": "heading", "label": "Título (cursiva → lima)", "default": "Reseñas de <em>clientes</em>" },

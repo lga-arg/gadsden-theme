@@ -1,5 +1,5 @@
 {%- comment -%}
-  ATHLEX · Nota (advertorial) — motor de artículo pre-venta.
+  Nota (advertorial) — motor de artículo pre-venta.
 
   Para qué: el ad no manda directo a la ficha, manda acá. Esta página tiene que
   parecer una nota que alguien se sienta a leer, y hacer todo el trabajo de
@@ -7,7 +7,7 @@
   sabe cómo se llama lo que tiene ni por qué le vuelve).
 
   UNA sola sección para TODAS las notas: el texto vive en los bloques de cada
-  plantilla (page.athlex-nota-*.json), así se escribe una nota nueva sin tocar
+  plantilla (page.gad-nota-*.json), así se escribe una nota nueva sin tocar
   código y el copy se edita desde el customizer.
 
   Bloques de TEXTO: subtitulo · parrafo (richtext) · destacado (la frase grande) ·
@@ -23,7 +23,7 @@
     video   · los videos que ya tenemos filmados (frío, ciencia, fábrica)
     tira    · carrusel de escenas reales
 
-  Los demos se animan al entrar en pantalla con la mecánica de athlex-mecanismo:
+  Los demos se animan al entrar en pantalla con la mecánica de gad-mecanismo:
   el JS marca .ax-armado en el contenedor y un IntersectionObserver agrega .ax-va.
   Si el JS no corre, no se escondió nada. Respetan prefers-reduced-motion.
   OJO al verificar: el Chrome headless viene con reduced-motion ACTIVADO, así que
@@ -36,7 +36,6 @@
   en "sin cuentos", y una nota disfrazada de periodismo es exactamente el cuento
   que decimos no hacer. Además es lo que pide Meta.
 
-  Instalar: node tools/tema.mjs put sections/athlex-nota.liquid
 {%- endcomment -%}
 
 {%- liquid
@@ -134,7 +133,7 @@
     text-align:center;padding:16px 14px;transform:skewX(-9deg);text-decoration:none;border:none;
     width:100%;cursor:pointer;line-height:1.1}
   #ax-nota-{{ uid }} .ax-cta span{display:inline-block;transform:skewX(9deg)}
-  /* Shrine dibuja el contorno de sus botones con ::before/::after (radio + sombra
+  /* El theme de la tienda dibuja el contorno de sus botones con ::before/::after (radio + sombra
      azul). Acá no queremos ninguno de los dos. Ver landing/TODOs. */
   #ax-nota-{{ uid }} .ax-cta::before,#ax-nota-{{ uid }} .ax-cta::after{content:none !important;display:none !important}
   #ax-nota-{{ uid }} .ax-cta{border-radius:0 !important;box-shadow:none !important}
@@ -332,7 +331,7 @@
      Regla de la casa: mostrar antes que contar. Cada uno de estos demuestra en
      imagen lo que el párrafo de al lado explicaría en tres renglones.
 
-     Mecánica compartida (la misma de athlex-mecanismo): el JS agrega .ax-armado
+     Mecánica compartida (la misma de gad-mecanismo): el JS agrega .ax-armado
      al contenedor y recién ahí el CSS esconde el estado inicial; un
      IntersectionObserver agrega .ax-va al entrar en pantalla. Si el JS no llega,
      no se escondió nada y todo se ve quieto pero completo.
@@ -680,7 +679,7 @@
             {%- if block.settings.linea != blank -%}
               <p class="ax-linea">{{ block.settings.linea }}</p>
             {%- endif -%}
-            <a class="ax-cta" href="{{ p.url | default: '/products/athlex' }}{{ section.settings.utm }}">
+            <a class="ax-cta" href="{{ p.url | default: routes.all_products_collection_url }}{{ section.settings.utm }}">
               <span>{{ block.settings.boton }}</span>
             </a>
           </div>
@@ -710,7 +709,7 @@
               </div>
             {%- endif -%}
 
-            <a class="ax-cta" href="{{ p.url | default: '/products/athlex' }}{{ section.settings.utm }}">
+            <a class="ax-cta" href="{{ p.url | default: routes.all_products_collection_url }}{{ section.settings.utm }}">
               <span>{{ block.settings.boton }}</span>
             </a>
 
@@ -746,7 +745,7 @@
 
 <script>
   /* Los bloques demostrativos se animan al entrar en pantalla. Misma mecánica
-     que athlex-mecanismo: recién acá se marca .ax-armado, así que si este script
+     que gad-mecanismo: recién acá se marca .ax-armado, así que si este script
      no corre, nada quedó escondido — se ve todo, quieto. */
   (function () {
     var caja = document.getElementById('ax-nota-{{ uid }}');
@@ -770,7 +769,7 @@
       <b>{{ section.settings.barra_titulo }}</b>
       {%- if p != blank -%}{{ p.price | money }}{%- endif -%}
     </div>
-    <a href="{{ p.url | default: '/products/athlex' }}{{ section.settings.utm }}">
+    <a href="{{ p.url | default: routes.all_products_collection_url }}{{ section.settings.utm }}">
       <span>{{ section.settings.barra_boton }}</span>
     </a>
   </div>
@@ -797,26 +796,26 @@
 {
   "name": "Nota",
   "tag": "section",
-  "class": "athlex-nota-section",
+  "class": "gad-article-section",
   "settings": [
     { "type": "select", "id": "estilo", "label": "Piel de la nota", "default": "papel",
       "options": [
-        { "value": "papel", "label": "ATHLEX (papel)" },
+        { "value": "papel", "label": "Papel" },
         { "value": "portal", "label": "Portal de noticias" }
       ],
       "info": "Portal = identidad neutra tipo nota. Nunca la marca de un medio real." },
-    { "type": "text", "id": "cinta", "label": "Cinta de arriba", "default": "PUBLICIDAD · CONTENIDO DE ATHLEX" },
+    { "type": "text", "id": "cinta", "label": "Cinta de arriba", "default": "PUBLICIDAD" },
     { "type": "text", "id": "eyebrow", "label": "Volanta", "default": "LEELO ANTES DE COMPRAR NADA" },
     { "type": "inline_richtext", "id": "titulo", "label": "Titular", "default": "Titular de la nota" },
     { "type": "textarea", "id": "bajada", "label": "Bajada" },
     { "type": "text", "id": "autor", "label": "Firma de arriba" },
     { "type": "text", "id": "dato", "label": "Dato al lado de la firma", "default": "3 minutos de lectura" },
     { "type": "header", "content": "Producto y links" },
-    { "type": "text", "id": "handle", "label": "Handle del producto", "default": "athlex" },
+    { "type": "text", "id": "handle", "label": "Handle del producto" },
     { "type": "text", "id": "utm", "label": "Parametros del link (arranca con ?)", "default": "?ref=nota" },
     { "type": "header", "content": "Barra fija de celular" },
     { "type": "checkbox", "id": "barra", "label": "Mostrar barra fija", "default": true },
-    { "type": "text", "id": "barra_titulo", "label": "Texto de la barra", "default": "ATHLEX PSS · 120 ml" },
+    { "type": "text", "id": "barra_titulo", "label": "Texto de la barra", "default": "Tu producto" },
     { "type": "text", "id": "barra_boton", "label": "Boton de la barra", "default": "Lo quiero" },
     { "type": "header", "content": "Pie" },
     { "type": "text", "id": "temas_titulo", "label": "Titulo de los chips", "default": "Temas de la nota" },
@@ -848,7 +847,7 @@
       "type": "firma", "name": "Firma",
       "settings": [
         { "type": "text", "id": "nombre", "label": "Nombre", "default": "Nombre Apellido" },
-        { "type": "text", "id": "rol", "label": "Rol", "default": "Fundador de ATHLEX" }
+        { "type": "text", "id": "rol", "label": "Rol", "default": "Su rol" }
       ]
     },
     {
@@ -897,7 +896,7 @@
         { "type": "text", "id": "col_a", "label": "Columna A", "default": "Una crema" },
         { "type": "textarea", "id": "pasos_a", "label": "Pasos A (uno por linea)",
           "default": "Lavarte las manos\nAbrir el pomo\nTocarte la zona y esparcir\nEsperar a que se absorba\nVolver a lavarte las manos\nEsperar para vestirte" },
-        { "type": "text", "id": "col_b", "label": "Columna B", "default": "ATHLEX" },
+        { "type": "text", "id": "col_b", "label": "Columna B", "default": "La nuestra" },
         { "type": "textarea", "id": "pasos_b", "label": "Pasos B (uno por linea)", "default": "Apuntar y apretar\nVestirte" },
         { "type": "text", "id": "pie", "label": "Pie", "default": "La diferencia no es la potencia. Es cuantas veces vas a tener ganas de hacerlo." }
       ]
@@ -935,20 +934,20 @@
         { "type": "text", "id": "fuente_1", "label": "Fuente 1", "default": "Mensaje de un foro publico, en espanol" },
         { "type": "textarea", "id": "cita_2", "label": "Cita 2 (vacio = no se muestra)" },
         { "type": "text", "id": "fuente_2", "label": "Fuente 2", "default": "Mensaje de un foro publico, en espanol" },
-        { "type": "text", "id": "pie", "label": "Aclaracion", "default": "Citas textuales de foros publicos. No son clientes de ATHLEX." }
+        { "type": "text", "id": "pie", "label": "Aclaracion", "default": "Citas textuales de foros públicos." }
       ]
     },
     {
       "type": "cta", "name": "Boton suelto",
       "settings": [
         { "type": "text", "id": "linea", "label": "Linea de arriba", "default": "Si ya sabes de que va y solo queres el producto:" },
-        { "type": "text", "id": "boton", "label": "Boton", "default": "Ver ATHLEX y su precio" }
+        { "type": "text", "id": "boton", "label": "Boton", "default": "Ver el producto y su precio" }
       ]
     },
     {
       "type": "caja", "name": "Caja de producto",
       "settings": [
-        { "type": "text", "id": "titulo", "label": "Titulo", "default": "ATHLEX PSS" },
+        { "type": "text", "id": "titulo", "label": "Titulo", "default": "Tu producto" },
         { "type": "text", "id": "sub", "label": "Bajada", "default": "Spray corporal para zonas de roce. 120 ml." },
         { "type": "text", "id": "boton", "label": "Boton", "default": "Ver la pagina del producto" },
         { "type": "text", "id": "pie", "label": "Linea de garantia", "default": "Garantia de 30 dias." }

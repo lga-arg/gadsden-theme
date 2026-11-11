@@ -1,9 +1,8 @@
 {%- comment -%}
-  ATHLEX · Test (quiz funnel) — 8 preguntas, una por pantalla.
+  Test (quiz funnel) — 8 preguntas, una por pantalla.
 
   Formato robado del Ad 97 de Alivera ("¿roce u hongo?"), que es su mejor pieza
-  nueva: educación pura, el que mira se ubica solo. Ver
-  D:\PROYECTOS\athlex\guion-v2b-checklist-roce-o-hongo.md
+  nueva: educación pura, el que mira se ubica solo. Ver
 
   Tres razones por las que existe:
   1. El que contesta 8 veces ya se comprometió; llega a la ficha caliente.
@@ -35,7 +34,7 @@
      hay miedo en ninguna pantalla, a propósito.
 
   Las citas de foros son TEXTUALES y van declaradas como lo que son: mensajes
-  públicos de foros, no clientes de ATHLEX (que tiene 0 ventas). Mapeo en
+  públicos de foros, no clientes. Mapeo en
   landing/reviews-mockup.md.
 
   Todo el COPY vive en el HTML (no en el JS) a propósito: así lo caza
@@ -44,14 +43,13 @@
   Medición: eventos custom al píxel (TestArrancado / TestCompletado con perfil)
   y ?ref=test&perfil=X en el link a la ficha.
 
-  Instalar: node tools/tema.mjs put sections/athlex-test.liquid
   Chequear la lógica: node tools/test-perfil.mjs
 {%- endcomment -%}
 
 {%- liquid
   assign uid = section.id | replace: '_', '-'
   assign p = all_products[section.settings.handle]
-  assign destino = p.url | default: '/products/athlex'
+  assign destino = p.url | default: routes.all_products_collection_url
 -%}
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@400;500;600;700&display=swap">
@@ -177,7 +175,7 @@
   #ax-test-{{ uid }} .ax-caja-pie{margin:12px 0 0;font-family:var(--texto);font-size:13.5px;
     line-height:1.4;display:flex;gap:8px;align-items:flex-start}
   #ax-test-{{ uid }} .ax-caja-pie svg{width:17px;height:17px;flex:none;color:var(--lima);margin-top:1px}
-  /* Shrine dibuja el contorno de sus botones con ::before/::after (radio + sombra
+  /* El theme de la tienda dibuja el contorno de sus botones con ::before/::after (radio + sombra
      azul) y le mete border-radius a todo <button>. Acá no. */
   #ax-test-{{ uid }} .ax-op::before,#ax-test-{{ uid }} .ax-op::after,
   #ax-test-{{ uid }} .ax-cta::before,#ax-test-{{ uid }} .ax-cta::after{content:none !important;display:none !important}
@@ -197,7 +195,7 @@
 <div id="ax-test-{{ uid }}" data-destino="{{ destino }}">
 
   <div class="ax-prog" data-prog hidden>
-    <div class="ax-prog-txt"><span data-prog-txt>Pregunta 1 de 8</span><span>ATHLEX</span></div>
+    <div class="ax-prog-txt"><span data-prog-txt>Pregunta 1 de 8</span><span>{{ section.settings.caja_titulo }}</span></div>
     <div class="ax-prog-riel"><b data-prog-barra></b></div>
   </div>
 
@@ -342,7 +340,7 @@
       <h2>Esto no te lo tenemos que vender nosotros. Te lo tiene que ver un médico.</h2>
       <div data-espejo></div>
       <p>Por lo que marcaste, la piel está abierta o hay algo más que picazón. Cuando la piel está lastimada, o cuando hay diabetes o defensas bajas de por medio, cualquier cosa que se aplique encima puede complicar el asunto en vez de ayudar.</p>
-      <p>Así que te decimos lo que casi nadie que te quiere vender algo te va a decir: <strong>ATHLEX no es para vos hoy</strong>. Andá a que te vea alguien. Una consulta dura quince minutos y no le tenés que explicar nada a nadie más.</p>
+      <p>Así que te decimos lo que casi nadie que te quiere vender algo te va a decir: <strong>{{ section.settings.caja_titulo }} no es para vos hoy</strong>. Andá a que te vea alguien. Una consulta dura quince minutos y no le tenés que explicar nada a nadie más.</p>
 
       <h3>Mientras tanto, tres cosas que ayudan y son gratis</h3>
       <ul>
@@ -382,7 +380,7 @@
         <li>Ropa interior de algodón y holgada, y toalla propia.</li>
       </ul>
 
-      <h3>Y qué hace ATHLEX</h3>
+      <h3>Y qué hace {{ section.settings.caja_titulo }}</h3>
       <p>Es un spray. Se aplica sin tocar la zona y sin frotar nada, se seca solo en segundos y la deja seca y fresca. Como es un spray y no una crema, se hace todos los días sin ritual y sin drama, que es justo lo que hace falta cuando el problema es de constancia.</p>
       <div data-caja></div>
       <button type="button" class="ax-reset" data-reset>Volver a empezar el test</button>
@@ -413,7 +411,7 @@
         <li>Toalla propia, y ponerse las medias antes que el calzoncillo si también aparece en los pies.</li>
       </ul>
 
-      <h3>Y qué hace ATHLEX</h3>
+      <h3>Y qué hace {{ section.settings.caja_titulo }}</h3>
       <p>Es un spray. Se aplica sin tocar la zona, se seca solo en segundos y la deja seca y fresca. Y esto es importante: <strong>cuando ya no se siente nada, seguí una semana más</strong>. Esa semana de más es la que evita volver a empezar.</p>
       <div data-caja></div>
       <button type="button" class="ax-reset" data-reset>Volver a empezar el test</button>
@@ -444,7 +442,7 @@
         <li>Ropa interior de algodón y holgada, y toalla propia.</li>
       </ul>
 
-      <h3>Y qué hace ATHLEX</h3>
+      <h3>Y qué hace {{ section.settings.caja_titulo }}</h3>
       <p>Es un spray. Se aplica sin tocar la zona y sin frotar, se seca solo en segundos y la deja seca y fresca. Es lo mismo que se hace con un desodorante, en otro lugar del cuerpo.</p>
       <div data-caja></div>
       <button type="button" class="ax-reset" data-reset>Volver a empezar el test</button>
@@ -596,7 +594,7 @@
 {
   "name": "Cuestionario",
   "tag": "section",
-  "class": "athlex-test-section",
+  "class": "gad-quiz-section",
   "settings": [
     { "type": "inline_richtext", "id": "titulo", "label": "Titular", "default": "Roce, o algo mas? El test de las 8 preguntas" },
     { "type": "textarea", "id": "bajada", "label": "Bajada", "default": "Si hay picazon o ardor en la ingle, contesta estas 8 preguntas: al final te decimos que encaja con lo que contaste, que se puede hacer hoy sin gastar un peso, y si conviene ver a un medico antes de comprar nada." },
@@ -605,10 +603,10 @@
     { "type": "inline_richtext", "id": "absolucion", "label": "Frase destacada",
       "default": "Eso se llama <em>tina inguinal</em>. Es un hongo, es comunisimo, y no es una enfermedad de transmision sexual." },
     { "type": "text", "id": "voces_pie", "label": "Aclaracion de las citas",
-      "default": "Cita textual de un foro publico. No es un cliente de ATHLEX." },
+      "default": "Cita textual de un foro público." },
     { "type": "header", "content": "Producto" },
-    { "type": "text", "id": "handle", "label": "Handle del producto", "default": "athlex" },
-    { "type": "text", "id": "caja_titulo", "label": "Titulo de la caja", "default": "ATHLEX PSS" },
+    { "type": "text", "id": "handle", "label": "Handle del producto" },
+    { "type": "text", "id": "caja_titulo", "label": "Titulo de la caja", "default": "Tu producto" },
     { "type": "text", "id": "caja_sub", "label": "Bajada de la caja", "default": "Spray corporal para zonas de roce. 120 ml." },
     { "type": "text", "id": "bene_1", "label": "Beneficio 1", "default": "Se aplica sin tocar la zona y sin frotar." },
     { "type": "text", "id": "bene_2", "label": "Beneficio 2", "default": "Seca en segundos: te vestis enseguida." },
@@ -617,7 +615,7 @@
     { "type": "text", "id": "caja_pie", "label": "Linea de garantia", "default": "Garantia de 30 dias: si no te convence, te devolvemos lo que pagaste." },
     { "type": "header", "content": "Pie" },
     { "type": "textarea", "id": "legal", "label": "Aviso legal",
-      "default": "Este test es una orientacion, no un diagnostico medico, y no reemplaza una consulta. ATHLEX PSS es un producto cosmetico de higiene y cuidado personal, de uso externo." }
+      "default": "Este test es una orientacion, no un diagnostico medico, y no reemplaza una consulta. Revisá el uso del producto en su etiqueta." }
   ],
   "presets": [ { "name": "Cuestionario" } ]
 }

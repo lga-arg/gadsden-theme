@@ -1,12 +1,11 @@
 {%- comment -%}
-  ATHLEX · Objeciones / FAQ — sección CUSTOM con schema.
+  Objeciones / FAQ — sección CUSTOM con schema.
   Acordeón nativo con <details>/<summary>: cero JavaScript.
 
   COMPLIANCE ANMAT: las respuestas se mantienen dentro del registro permitido
   (sensación, textura, modo de uso, advertencias de la etiqueta). Prohibido responder
   "para qué sirve" en términos de patología. Ver landing/copys.md.
 
-  Instalar: Editar código → Sections → nombre athlex-faq → pegar TODO esto.
 {%- endcomment -%}
 
 {%- liquid
@@ -72,7 +71,7 @@
   }
 
   /* Decisión de Gero (2026-08-03): TODO corre siempre — sin excepción por
-     prefers-reduced-motion en ninguna sección ATHLEX. */
+     prefers-reduced-motion en ninguna de estas secciones. */
 </style>
 
 <div id="ax-faq-{{ uid }}">
@@ -104,7 +103,7 @@
 {
   "name": "Objeciones",
   "tag": "section",
-  "class": "athlex-faq-section",
+  "class": "gad-objections-section",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Bajada (eyebrow)", "default": "04 — LO QUE TODOS PREGUNTAN" },
     { "type": "inline_richtext", "id": "heading", "label": "Título (podés resaltar con cursiva → lima)", "default": "Sacate las <em>dudas</em>" },

@@ -1,5 +1,5 @@
 {%- comment -%}
-  ATHLEX · Ingredientes — v3 "LA FÓRMULA ABIERTA", en FICHAS VISUALES.
+  Ingredientes — v3 "LA FÓRMULA ABIERTA", en FICHAS VISUALES.
 
   2026-08-03, feedback de Gero sobre la v2: "es un muro de texto, eso no lo pienso
   leer, me voy a comprarle a Alivera". Tenía razón: cinco tarjetas tipográficas con
@@ -13,7 +13,7 @@
 
   Las texturas se generaron con IA (Higgsfield nano_banana, serie consistente:
   macro oscuro + acento lima único) y viven en Archivos de Shopify como
-  athlex-eq-*.jpg. Se cambian por foto real desde el customizer cuando exista.
+  gad-eq-*.jpg. Se cambian por foto real desde el customizer cuando exista.
 
   MOBILE: carrusel con scroll-snap — la misma mecánica que problema y uso, el
   visitante ya la aprendió. DESKTOP: grilla de una fila, el primero destacado.
@@ -23,7 +23,6 @@
   COMPLIANCE: funciones en registro cosmético. Los % son composición declarada
   (respaldo en landing/formula.md), no claims de eficacia.
 
-  Instalar: node tools/tema.mjs put sections/athlex-ingredientes.liquid
 {%- endcomment -%}
 
 {%- liquid
@@ -137,7 +136,7 @@
     transition:transform .3s cubic-bezier(.2,1.7,.4,1),opacity .1s linear}
 
   /* Decisión de Gero (2026-08-03): TODO corre siempre — sin excepción por
-     prefers-reduced-motion en ninguna sección ATHLEX. */
+     prefers-reduced-motion en ninguna de estas secciones. */
 
   /* ── DESKTOP ──────────────────────────────────────────────────────────────
      Una fila: EL FRÍO destacado al doble de ancho, los otros cuatro parejos.
@@ -297,7 +296,7 @@
 {
   "name": "Pósters con texto",
   "tag": "section",
-  "class": "athlex-ingredientes-section",
+  "class": "gad-posters-section",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Bajada (eyebrow)", "default": "05 — QUÉ TIENE ADENTRO" },
     { "type": "inline_richtext", "id": "heading", "label": "Título (cursiva → lima)", "default": "La fórmula, <em>abierta</em>" },

@@ -1,5 +1,5 @@
 {%- comment -%}
-  ATHLEX · Cómo se usa — v5 foto+panel, con cronómetro.
+  Cómo se usa — v5 foto+panel, con cronómetro.
 
   Cada paso es una tarjeta con FOTO REAL DEL GESTO arriba y un panel lima abajo
   con número, título, duración y texto. Las tarjetas cierran parejas (flex:1 en
@@ -16,7 +16,7 @@
   contador de cuadro 1/3, timecode por foto). Gero la descartó: "no tiene nada
   que ver el cuadro de película". No volver a proponerla.
 
-  MOBILE: carrusel con scroll-snap, la misma mecánica que athlex-problema (dots
+  MOBILE: carrusel con scroll-snap, la misma mecánica que gad-problema (dots
   que siguen al dedo, saltan al tocarlos, y el carrusel entra por teclado).
   DESKTOP: grilla de tantas columnas como pasos haya.
 
@@ -24,7 +24,6 @@
   sobre fondo tinta. Se ve deliberado, no roto. Las fotos se cargan desde el
   customizer, una por paso, sin tocar código.
 
-  Instalar: node tools/tema.mjs put sections/athlex-uso.liquid
 {%- endcomment -%}
 
 {%- liquid
@@ -168,7 +167,7 @@
   }
 
   /* Decisión de Gero (2026-08-03): TODO corre siempre — sin excepción por
-     prefers-reduced-motion en ninguna sección ATHLEX. */
+     prefers-reduced-motion en ninguna de estas secciones. */
 </style>
 
 <div id="ax-uso-{{ uid }}">
@@ -344,7 +343,7 @@
 {
   "name": "Pasos con cronómetro",
   "tag": "section",
-  "class": "athlex-uso-section",
+  "class": "gad-timed-steps-section",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Bajada (eyebrow)", "default": "03 — CÓMO SE USA" },
     { "type": "inline_richtext", "id": "heading", "label": "Título (cursiva → lima)", "default": "Tres movimientos, <em>quince segundos</em>" },

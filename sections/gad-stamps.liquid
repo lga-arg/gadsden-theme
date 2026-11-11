@@ -1,5 +1,5 @@
 {%- comment -%}
-  ATHLEX · Mecanismo — v5 "FRÍO / SECO / LISTO".
+  Mecanismo — v5 "FRÍO / SECO / LISTO".
 
   2026-08-03: Gero mató el concepto de las doce horas ("no lo entendés vos, menos yo,
   menos el cliente"). Tenía razón: era una cuenta que había que explicar. Esto no se
@@ -23,7 +23,6 @@
   COMPLIANCE: claims dentro del registro cosmético ("alivia la sensación de picazón
   y ardor", "mantiene la piel seca"). Nada de curar/tratar/eliminar.
 
-  Instalar: node tools/tema.mjs put sections/athlex-mecanismo.liquid
 {%- endcomment -%}
 
 {%- liquid
@@ -98,7 +97,7 @@
     color:var(--tinta);padding:12px 14px}
 
   /* Decisión de Gero (2026-08-03): TODO corre siempre — sin excepción por
-     prefers-reduced-motion en ninguna sección ATHLEX. */
+     prefers-reduced-motion en ninguna de estas secciones. */
 
   /* ── DESKTOP: recién acá sumo complejidad ───────────────────────────────── */
   @media(min-width:900px){
@@ -187,7 +186,7 @@
 {
   "name": "Sellos animados",
   "tag": "section",
-  "class": "athlex-mecanismo-section",
+  "class": "gad-stamps-section",
   "settings": [
     { "type": "header", "content": "Animación (ocupa media pantalla)" },
     { "type": "video", "id": "video", "label": "Video de la animación" },

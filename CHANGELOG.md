@@ -1,5 +1,18 @@
 # Cambios
 
+## 1.2.9
+
+### White label
+- Las secciones ya no traen nombres de tiendas en lo que se ve: los textos de fábrica pasan a ser genéricos ("Tu marca", "Tu frase", "Tu producto", "Nosotros", "Quiero el mío", "Ver el producto y su precio"), igual que en la app de Tiendanube.
+- Cuestionario: el nombre del producto en la barra de progreso y en los resultados sale del ajuste **Titulo de la caja**. Sin producto elegido, los botones llevan a todos los productos.
+- Nota (advertorial): sin producto elegido, los botones llevan a todos los productos.
+- La clase del contenedor de cada sección es `gad-…-section`, y los ids internos de Marquesina, Íconos con contenido, Llamado final y Tabla versus empiezan con `gad-`. El ancla del muro de reseñas es `#gad-resenas`.
+
+### Para quien actualiza desde 1.2.8 o antes
+- **Legal:** los metacampos del producto se leen del namespace `custom` (`custom.inci`, `custom.titular`, `custom.anmat_legajo`, `custom.contenido_neto`). Si los tenías en otro namespace, creálos en `custom` o la sección muestra "pendiente".
+- Si tenías CSS propio que apuntaba a las clases o ids viejos de esas secciones, cambialo a los nuevos.
+- Lo que ya está guardado en tus secciones no cambia: los textos de fábrica nuevos aparecen sólo al agregar una sección.
+
 ## 1.2.8
 
 ### Ficha de producto

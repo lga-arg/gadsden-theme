@@ -1,5 +1,5 @@
 {%- comment -%}
-  ATHLEX · Reseñas mini — v2 TICKER continuo, para ARRIBA de la landing.
+  Reseñas mini — v2 TICKER continuo, para ARRIBA de la landing.
 
   Pedido de Gero (2026-08-03): ticker horizontal que corre solo, con la ficha
   más completa del reseñador — foto, estrellas, cita, nombre, fecha de compra,
@@ -13,7 +13,6 @@
   Misma regla que el muro: sin citas cargadas NO se renderiza; promedio real o
   nada. Cuando entre Judge.me, su badge reemplaza esto.
 
-  Instalar: node tools/tema.mjs put sections/athlex-reviews-mini.liquid
 {%- endcomment -%}
 
 {%- liquid
@@ -100,7 +99,7 @@
 {
   "name": "Reseñas mini",
   "tag": "section",
-  "class": "athlex-reviews-mini-section",
+  "class": "gad-reviews-mini-section",
   "settings": [
     { "type": "range", "id": "velocidad", "label": "Velocidad del ticker (segundos por vuelta)", "min": 16, "max": 60, "step": 4, "default": 40 }
   ],

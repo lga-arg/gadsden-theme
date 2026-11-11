@@ -1,5 +1,5 @@
 {%- comment -%}
-  ATHLEX · Proceso — v2 "EL PROCESO SE REPRODUCE SOLO" (video por capítulos).
+  Proceso — v2 "EL PROCESO SE REPRODUCE SOLO" (video por capítulos).
 
   2026-08-03, pedido de Gero: la sección de proceso, mobile-first y CON VIDEOS.
 
@@ -29,7 +29,6 @@
   se recorta con object-fit), 5–10 segundos, SIN audio (van muted igual),
   <8 MB cada uno. Se cargan por etapa desde el customizer.
 
-  Instalar: node tools/tema.mjs put sections/athlex-proceso.liquid
 {%- endcomment -%}
 
 {%- liquid
@@ -114,7 +113,7 @@
     font-family:var(--impacto);text-transform:uppercase;font-size:15px;line-height:1.25;max-width:30ch}
 
   /* Decisión de Gero (2026-08-03): TODO corre siempre — sin excepción por
-     prefers-reduced-motion en ninguna sección ATHLEX. */
+     prefers-reduced-motion en ninguna de estas secciones. */
 
   /* ── DESKTOP: escenario a la izquierda, fichas y leyenda a la derecha ───── */
   @media(min-width:900px){
@@ -266,7 +265,7 @@
 {
   "name": "Capítulos en video",
   "tag": "section",
-  "class": "athlex-proceso-section",
+  "class": "gad-chapters-section",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Bajada (eyebrow)", "default": "06 — CÓMO SE HACE" },
     { "type": "inline_richtext", "id": "heading", "label": "Título (cursiva → lima)", "default": "De dónde <em>sale</em>" },
