@@ -1,5 +1,19 @@
 # Cambios
 
+## 1.2.10
+
+### Imágenes de respaldo
+- Seis secciones pedían, cuando no elegías una imagen, archivos que el theme no trae, y en una tienda nueva se veían imágenes rotas. Ahora, sin imagen elegida, muestran el placeholder de Shopify (como las secciones de Dawn) hasta que cargues las tuyas:
+  - **Hero con palabra que rota:** placeholders en las fotos de antes y después. Sin imagen de fondo, en el celular no va nada detrás del texto y en escritorio la columna de la foto muestra un placeholder.
+  - **Antes y después barrido:** un placeholder distinto a cada lado, así se ve el barrido.
+  - **Cierre:** placeholder de producto.
+  - **Videos en coverflow:** sin video, la tarjeta muestra la imagen de portada; sin portada, un placeholder sobre fondo claro.
+  - **Pasos automáticos** y **Tarjetas recortadas:** placeholder en cada paso o tarjeta sin imagen.
+- **Antes y después barrido:** las fotos llevan su ancho y alto (menos saltos al cargar).
+- `shopify theme check` ya no marca `MissingAsset`.
+
+Lo que ya tenías cargado en esas secciones no cambia.
+
 ## 1.2.9
 
 ### White label
